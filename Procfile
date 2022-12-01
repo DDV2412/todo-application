@@ -1,1 +1,0 @@
-web: npm build && npx sequelize-cli db:generate && npm start

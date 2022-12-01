@@ -1,4 +1,4 @@
-name: Deploy to HeroKu
+name: Deploy to Netlify
 
 on:
   push:
@@ -6,12 +6,13 @@ on:
       - master
 
 jobs:
-  build:
+  deploy:
+    name: "Deploy"
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: actions/checkout@v1
+      - uses: jsmrcaga/action-netlify-deploy@master
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_API_EMAIL}}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
