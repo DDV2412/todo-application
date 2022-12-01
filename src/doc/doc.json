@@ -1,0 +1,638 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Todo Applicatiop API",
+    "description": "RESTful API Designed in Node.js for a very simple TODO application.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:9090",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer &lt;token>**"
+    }
+  },
+  "paths": {
+    "/api/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User login",
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Create Todo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserResponse"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Todo not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Task not found"
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": ""
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/generate": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User login",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserResponse"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": ""
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/todo": {
+      "post": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Todo create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Create Todo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoResponse"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Todo missing validation.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": ""
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Todo not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Task not found"
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": ""
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Todo Find All",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoResponse"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/todo/{id}": {
+      "put": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Todo update by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Create Todo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoResponse"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Todo missing validation.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": ""
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Todo not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Task not found"
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": ""
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Todo Find By ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoResponse"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Todo not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Task not found"
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Todo delete by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully deleted task ID"
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Todo not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Task not found"
+                },
+                "payload": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "pin": {
+          "type": "number",
+          "example": 1234
+        }
+      }
+    },
+    "todo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "example": "263bd27a-f6d2-447b-8bfc-ef2372ae2cd0"
+        },
+        "taskName": {
+          "type": "string",
+          "example": "Task 1"
+        },
+        "startDate": {
+          "type": "string",
+          "example": "2022-12-01T12:09:40.189Z"
+        },
+        "dueDate": {
+          "type": "string",
+          "example": "2022-12-01T12:09:40.189Z"
+        },
+        "status": {
+          "type": "string",
+          "example": "Enum (todo/testing/complete)"
+        },
+        "description": {
+          "type": "string",
+          "example": "Description"
+        }
+      }
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "function"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "d8083866-5780-44a4-8c40-e7db0ff4360e"
+            },
+            "pin": {
+              "type": "number",
+              "example": 1234
+            },
+            "token": {
+              "type": "string",
+              "example": "Bearer Token"
+            }
+          }
+        }
+      }
+    },
+    "TodoResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Successfully find all tasks"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "a7e3d952-aac0-45ab-b12c-6e7960f3c0d3"
+            },
+            "user_id": {
+              "type": "string",
+              "example": "263bd27a-f6d2-447b-8bfc-ef2372ae2cd0"
+            },
+            "taskName": {
+              "type": "string",
+              "example": "Task 2"
+            },
+            "startDate": {},
+            "dueDate": {},
+            "status": {
+              "type": "string",
+              "example": "testing"
+            },
+            "description": {},
+            "createdAt": {
+              "type": "string",
+              "example": "2022-12-01T11:59:53.803Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2022-12-01T12:00:23.706Z"
+            }
+          }
+        }
+      }
+    }
+  }
+}

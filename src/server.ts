@@ -15,6 +15,8 @@ class Server extends App {
   }
 
   render(): void {
+    super.render();
+
     this.app.listen(this.port, () => {
       console.log(
         `This server is running at http://${this.host}:${this.port} with mode ${process.env.NODE_ENV}`

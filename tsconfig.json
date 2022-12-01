@@ -36,9 +36,7 @@
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
     "types": [
-      "node",
-      "jest",
-      "@types/jest"
+      "node"
     ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
@@ -108,7 +106,7 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "suppressImplicitAnyIndexErrors": true
   },
-  "exclude": ["node_modules", "__tests__", "jest.config.ts"],
+  "exclude": ["node_modules"],
   "ts-node": {
     "transpileOnly": true,
     "files": true
