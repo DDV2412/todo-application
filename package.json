@@ -7,7 +7,7 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "start": "ts-node src/server.ts",
+    "start": "ts-node build/server.ts",
     "build": "tsc",
     "generate": "ts-node swagger.ts",
     "test": "jest --coverage"
