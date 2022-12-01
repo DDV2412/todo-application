@@ -50,6 +50,13 @@ class Application {
       next();
     });
 
+    this.app.use("/", (req, res) => {
+      res.json({
+        message:
+          "RESTful API Designed in Node.js for a very simple TODO application.",
+      });
+    });
+
     this.app.use("/api", router);
 
     this.app.use("/api/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
